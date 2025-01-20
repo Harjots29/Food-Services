@@ -149,7 +149,6 @@
 
     <!-- Submit Button -->
 
-    <!-- Separator Line -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_submit"
         android:layout_width="0dp"
