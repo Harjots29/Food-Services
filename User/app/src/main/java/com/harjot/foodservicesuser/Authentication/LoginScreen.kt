@@ -1,4 +1,4 @@
-package com.harjot.foodservicesuser.Authentication
+package com.harjot.foodservicesuser.authentication
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.harjot.foodservicesuser.MainActivity
-import com.harjot.foodservicesuser.R
-import com.harjot.foodservicesuser.databinding.ActivityMainBinding
 import com.harjot.foodservicesuser.databinding.FragmentLoginScreenBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,7 +29,7 @@ class LoginScreen : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivity = activity as MainActivity
+//        mainActivity = activity as MainActivity
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)

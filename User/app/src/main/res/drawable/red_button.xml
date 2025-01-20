@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color -->
+    <solid android:color="#FF2400" /> <!-- Pink color, customize as needed -->
+
+    <!-- Rounded corners -->
+    <corners android:radius="20dp" /> <!-- Smooth rounded edges -->
+
+    <!-- Optional border -->
+    <stroke
+        android:width="2dp"
+        android:color="#FFFFFF" /> <!-- White border -->
+</shape>
