@@ -5,10 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.harjot.foodservicesuser.MainActivity
 import com.harjot.foodservicesuser.R
-import com.harjot.foodservicesuser.databinding.FragmentLoginScreenBinding
+import com.harjot.foodservicesuser.databinding.FragmentForgotPasswordScreenBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,12 +15,12 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [LoginScreen.newInstance] factory method to
+ * Use the [ForgotPasswordScreen.newInstance] factory method to
  * create an instance of this fragment.
  */
-class LoginScreen : Fragment() {
+class ForgotPasswordScreen : Fragment() {
     val binding by lazy {
-        FragmentLoginScreenBinding.inflate(layoutInflater)
+        FragmentForgotPasswordScreenBinding.inflate(layoutInflater)
     }
     lateinit var authenticationActivity: AuthenticationActivity
     // TODO: Rename and change types of parameters
@@ -46,16 +44,6 @@ class LoginScreen : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.tvSignup.setOnClickListener {
-            authenticationActivity.navController.navigate(R.id.signupScreen)
-        }
-        binding.tvForgotPassword.setOnClickListener {
-            authenticationActivity.navController.navigate(R.id.forgotPasswordScreen)
-        }
-    }
-
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -63,12 +51,12 @@ class LoginScreen : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginScreen.
+         * @return A new instance of fragment ForgotPasswordScreen.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            LoginScreen().apply {
+            ForgotPasswordScreen().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
