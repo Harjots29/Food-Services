@@ -8,16 +8,18 @@
     <fragment
         android:id="@+id/homeScreen"
         android:name="com.harjot.foodservicesuser.fragments.homesection.HomeScreen"
-        android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_home_screen" />
-    <fragment
-        android:id="@+id/infoScreen"
-        android:name="com.harjot.foodservicesuser.fragments.infosection.InfoScreen"
-        android:label="fragment_info_screen"
-        tools:layout="@layout/fragment_info_screen" />
+        tools:layout="@layout/fragment_home_screen"
+        android:label="Home Screen" />
+
     <fragment
         android:id="@+id/filterScreen"
         android:name="com.harjot.foodservicesuser.fragments.filtersection.FilterScreen"
-        android:label="fragment_filter_screen"
-        tools:layout="@layout/fragment_filter_screen" />
+        tools:layout="@layout/fragment_filter_screen"
+        android:label="Filter Screen" />
+
+    <fragment
+        android:id="@+id/infoScreen"
+        android:name="com.harjot.foodservicesuser.fragments.infosection.InfoScreen"
+        tools:layout="@layout/fragment_info_screen"
+        android:label="Info Screen" />
 </navigation>

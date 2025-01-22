@@ -64,9 +64,4 @@ class FilterScreen : Fragment() {
                 }
             }
     }
-
-    override fun onDetach() {
-        super.onDetach()
-        mainScreenBottomNav.finish()
-    }
 }

@@ -1,6 +1,8 @@
 package com.harjot.foodservicesuser.fragments.homesection
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +58,8 @@ class HomeScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupAutoScroll(binding.viewPager, 3000L)
     }
 
     companion object {
@@ -84,5 +88,27 @@ class HomeScreen : Fragment() {
             HomeAddsModel(R.drawable.add_3),
             HomeAddsModel(R.drawable.add_4),
         )
+    }
+    fun setupAutoScroll(viewPager: ViewPager2, interval: Long) {
+        val handler = Handler(Looper.getMainLooper())
+        var currentPage = 0
+
+        val runnable = object : Runnable {
+            override fun run() {
+                val adapter = viewPager.adapter ?: return
+                currentPage = (currentPage + 1) % adapter.itemCount // Loop back to the first item
+                viewPager.setCurrentItem(currentPage, true)
+                handler.postDelayed(this, interval)
+            }
+        }
+        // Start the automatic scrolling
+        handler.postDelayed(runnable, interval)
+
+        // Optional: Stop scrolling when the user interacts with the ViewPager2
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                currentPage = position
+            }
+        })
     }
 }

@@ -80,9 +80,4 @@ class InfoScreen : Fragment() {
                 }
             }
     }
-
-    override fun onDetach() {
-        super.onDetach()
-        mainScreenBottomNav.finish()
-    }
 }
