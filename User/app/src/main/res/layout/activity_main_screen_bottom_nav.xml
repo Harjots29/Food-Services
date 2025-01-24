@@ -33,10 +33,11 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
+        android:visibility="gone"
         android:layout_marginHorizontal="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnFilter"
+        app:layout_constraintBottom_toTopOf="@+id/btnEvent"
         android:layout_marginBottom="20dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,7 +89,7 @@
         android:layout_height="50dp"
         app:cardCornerRadius="25dp"
         android:layout_marginBottom="30dp"
-        app:layout_constraintEnd_toStartOf="@id/btnFilter"
+        app:layout_constraintEnd_toStartOf="@id/btnEvent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
         <ImageView
@@ -102,7 +103,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/btnFilter"
+        android:id="@+id/btnEvent"
         android:layout_width="100dp"
         android:layout_height="50dp"
         app:cardCornerRadius="25dp"
@@ -112,13 +113,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="10dp">
         <ImageView
-            android:id="@+id/ivFilter"
+            android:id="@+id/ivEvent"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:background="@color/transparent"
             app:tint="@color/red"
             android:layout_gravity="center"
-            android:src="@drawable/ic_filter"/>
+            android:src="@drawable/ic_event"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -130,7 +131,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnFilter">
+        app:layout_constraintStart_toEndOf="@id/btnEvent">
         <ImageView
             android:id="@+id/ivInfo"
             android:layout_width="30dp"
@@ -140,5 +141,20 @@
             android:layout_gravity="center"
             android:src="@drawable/ic_info"/>
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabEventAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:elevation="30dp"
+        android:visibility="gone"
+        app:shapeAppearance="@style/Widget.MaterialComponents.CircularProgressIndicator"
+        android:src="@drawable/ic_add"
+        app:tint="@color/white"
+        android:backgroundTint="@color/red"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCart"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

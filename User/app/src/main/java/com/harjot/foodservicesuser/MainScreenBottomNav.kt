@@ -36,6 +36,7 @@ class MainScreenBottomNav : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
         navController = findNavController(R.id.navHostFragment)
+        binding.btnCart.visibility = View.VISIBLE
 
 //        val blurEffect = RenderEffect.createBlurEffect(
 //            10f,
@@ -52,30 +53,39 @@ class MainScreenBottomNav : AppCompatActivity() {
         binding.btnHome.setOnClickListener {
             binding.btnHome.setCardBackgroundColor(getResources().getColor(R.color.red))
             binding.ivHome.setColorFilter(ContextCompat.getColor(this, R.color.white))
-            binding.btnFilter.setCardBackgroundColor(getResources().getColor(R.color.white))
-            binding.ivFilter.setColorFilter(ContextCompat.getColor(this, R.color.red))
+            binding.btnEvent.setCardBackgroundColor(getResources().getColor(R.color.white))
+            binding.ivEvent.setColorFilter(ContextCompat.getColor(this, R.color.red))
             binding.btnInfo.setCardBackgroundColor(getResources().getColor(R.color.white))
             binding.ivInfo.setColorFilter(ContextCompat.getColor(this, R.color.red))
+
+            binding.btnCart.visibility = View.VISIBLE
+            binding.fabEventAdd.visibility = View.GONE
 
             navController.navigate(R.id.homeScreen)
         }
-        binding.btnFilter.setOnClickListener {
+        binding.btnEvent.setOnClickListener {
             binding.btnHome.setCardBackgroundColor(getResources().getColor(R.color.white))
             binding.ivHome.setColorFilter(ContextCompat.getColor(this, R.color.red))
-            binding.btnFilter.setCardBackgroundColor(getResources().getColor(R.color.red))
-            binding.ivFilter.setColorFilter(ContextCompat.getColor(this, R.color.white))
+            binding.btnEvent.setCardBackgroundColor(getResources().getColor(R.color.red))
+            binding.ivEvent.setColorFilter(ContextCompat.getColor(this, R.color.white))
             binding.btnInfo.setCardBackgroundColor(getResources().getColor(R.color.white))
             binding.ivInfo.setColorFilter(ContextCompat.getColor(this, R.color.red))
 
-            navController.navigate(R.id.filterScreen)
+            binding.btnCart.visibility = View.GONE
+            binding.fabEventAdd.visibility = View.VISIBLE
+
+            navController.navigate(R.id.eventListScreen)
         }
         binding.btnInfo.setOnClickListener {
             binding.btnHome.setCardBackgroundColor(getResources().getColor(R.color.white))
             binding.ivHome.setColorFilter(ContextCompat.getColor(this, R.color.red))
-            binding.btnFilter.setCardBackgroundColor(getResources().getColor(R.color.white))
-            binding.ivFilter.setColorFilter(ContextCompat.getColor(this, R.color.red))
+            binding.btnEvent.setCardBackgroundColor(getResources().getColor(R.color.white))
+            binding.ivEvent.setColorFilter(ContextCompat.getColor(this, R.color.red))
             binding.btnInfo.setCardBackgroundColor(getResources().getColor(R.color.red))
             binding.ivInfo.setColorFilter(ContextCompat.getColor(this, R.color.white))
+
+            binding.fabEventAdd.visibility = View.GONE
+            binding.btnCart.visibility = View.GONE
 
             navController.navigate(R.id.infoScreen)
         }
@@ -90,23 +100,33 @@ class MainScreenBottomNav : AppCompatActivity() {
             R.id.homeScreen -> {
                 finish()
             }
-            R.id.filterScreen -> {
+            R.id.eventListScreen -> {
                 binding.btnHome.setCardBackgroundColor(getResources().getColor(R.color.red))
                 binding.ivHome.setColorFilter(ContextCompat.getColor(this, R.color.white))
-                binding.btnFilter.setCardBackgroundColor(getResources().getColor(R.color.white))
-                binding.ivFilter.setColorFilter(ContextCompat.getColor(this, R.color.red))
+                binding.btnEvent.setCardBackgroundColor(getResources().getColor(R.color.white))
+                binding.ivEvent.setColorFilter(ContextCompat.getColor(this, R.color.red))
                 binding.btnInfo.setCardBackgroundColor(getResources().getColor(R.color.white))
                 binding.ivInfo.setColorFilter(ContextCompat.getColor(this, R.color.red))
+
+                binding.btnCart.visibility = View.VISIBLE
+                binding.fabEventAdd.visibility = View.GONE
                 navController.popBackStack(R.id.homeScreen,false)
             }
             R.id.infoScreen -> {
                 binding.btnHome.setCardBackgroundColor(getResources().getColor(R.color.red))
                 binding.ivHome.setColorFilter(ContextCompat.getColor(this, R.color.white))
-                binding.btnFilter.setCardBackgroundColor(getResources().getColor(R.color.white))
-                binding.ivFilter.setColorFilter(ContextCompat.getColor(this, R.color.red))
+                binding.btnEvent.setCardBackgroundColor(getResources().getColor(R.color.white))
+                binding.ivEvent.setColorFilter(ContextCompat.getColor(this, R.color.red))
                 binding.btnInfo.setCardBackgroundColor(getResources().getColor(R.color.white))
                 binding.ivInfo.setColorFilter(ContextCompat.getColor(this, R.color.red))
+
+                binding.btnCart.visibility = View.VISIBLE
+                binding.fabEventAdd.visibility = View.GONE
                 navController.popBackStack(R.id.homeScreen,false)
+            }
+            R.id.addEventsFragment -> {
+                binding.fabEventAdd.visibility = View.VISIBLE
+                super.onBackPressed()
             }
             else -> {
                 // For other fragments, use the default back action

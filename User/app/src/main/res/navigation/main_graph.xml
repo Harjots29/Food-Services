@@ -12,9 +12,9 @@
         android:label="Home Screen" />
 
     <fragment
-        android:id="@+id/filterScreen"
-        android:name="com.harjot.foodservicesuser.fragments.filtersection.FilterScreen"
-        tools:layout="@layout/fragment_filter_screen"
+        android:id="@+id/eventListScreen"
+        android:name="com.harjot.foodservicesuser.fragments.eventsection.EventListScreen"
+        tools:layout="@layout/fragment_event_list_screen"
         android:label="Filter Screen" />
 
     <fragment
@@ -22,4 +22,9 @@
         android:name="com.harjot.foodservicesuser.fragments.infosection.InfoScreen"
         tools:layout="@layout/fragment_info_screen"
         android:label="Info Screen" />
+    <fragment
+        android:id="@+id/addEventsFragment"
+        android:name="com.harjot.foodservicesuser.fragments.eventsection.AddEventsFragment"
+        android:label="fragment_add_events"
+        tools:layout="@layout/fragment_add_events" />
 </navigation>
