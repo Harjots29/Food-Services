@@ -12,4 +12,5 @@
         <item name="searchIcon">@drawable/ic_search</item>
         <item name="tint">@color/red</item>
     </style>
+
 </resources>
