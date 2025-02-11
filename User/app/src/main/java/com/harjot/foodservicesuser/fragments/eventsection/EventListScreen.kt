@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
 import com.harjot.foodservicesuser.adapters.EventListAdapter
@@ -64,6 +66,96 @@ class EventListScreen : Fragment() {
             time = "6:00 pm",
             venue = "Kartarpur"
         ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+        eventList.add(
+            EventsModel(
+                eventName = "Birthday",
+                price = "500",
+                date = "25-Jan-2025",
+                time = "6:00 pm",
+                venue = "Kartarpur"
+            ))
+
+
         eventListAdapter.notifyDataSetChanged()
         return binding.root
     }
@@ -74,25 +166,53 @@ class EventListScreen : Fragment() {
             mainScreenBottomNav.navController.navigate(R.id.addEventsFragment)
             mainScreenBottomNav.binding.fabEventAdd.visibility = View.GONE
         }
-    }
+        binding.rvEventList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val btnHome = mainScreenBottomNav.binding.btnHome
+                val btnEvent = mainScreenBottomNav.binding.btnEvent
+                val btnInfo = mainScreenBottomNav.binding.btnInfo
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FilterScreen.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EventListScreen().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                if (dy > 0) { // Scroll Down
+                    btnHome.animate().alpha(0f).setDuration(200).withEndAction {
+                        btnHome.visibility = View.GONE
+                    }
+                    btnEvent.animate().alpha(0f).setDuration(200).withEndAction {
+                        btnEvent.visibility = View.GONE
+                    }
+                    btnInfo.animate().alpha(0f).setDuration(200).withEndAction {
+                        btnInfo.visibility = View.GONE
+                    }
+                } else if (dy < 0) { // Scroll Up
+                    btnHome.visibility = View.VISIBLE
+                    btnHome.animate().alpha(1f).setDuration(200)
+
+                    btnEvent.visibility = View.VISIBLE
+                    btnEvent.animate().alpha(1f).setDuration(200)
+
+                    btnInfo.visibility = View.VISIBLE
+                    btnInfo.animate().alpha(1f).setDuration(200)
                 }
             }
+        })
     }
-}
+        companion object {
+            /**
+             * Use this factory method to create a new instance of
+             * this fragment using the provided parameters.
+             *
+             * @param param1 Parameter 1.
+             * @param param2 Parameter 2.
+             * @return A new instance of fragment FilterScreen.
+             */
+            // TODO: Rename and change types and number of parameters
+            @JvmStatic
+            fun newInstance(param1: String, param2: String) =
+                EventListScreen().apply {
+                    arguments = Bundle().apply {
+                        putString(ARG_PARAM1, param1)
+                        putString(ARG_PARAM2, param2)
+                    }
+                }
+        }
+    }

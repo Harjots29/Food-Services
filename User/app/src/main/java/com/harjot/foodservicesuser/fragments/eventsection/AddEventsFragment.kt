@@ -6,12 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
+import com.harjot.foodservicesuser.adapters.CategoryAdapter
+import com.harjot.foodservicesuser.adapters.EventListAdapter
 import com.harjot.foodservicesuser.databinding.FragmentAddEventsBinding
+import com.harjot.foodservicesuser.models.CategoryModel
+import com.harjot.foodservicesuser.models.EventsModel
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
@@ -31,6 +39,8 @@ class AddEventsFragment : Fragment() {
         FragmentAddEventsBinding.inflate(layoutInflater)
     }
     lateinit var mainScreenBottomNav: MainScreenBottomNav
+    var  categoryList = ArrayList<CategoryModel>()
+    lateinit var categoryAdapter: CategoryAdapter
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -38,6 +48,11 @@ class AddEventsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainScreenBottomNav = activity as MainScreenBottomNav
+
+        categoryAdapter = CategoryAdapter(categoryList)
+        binding.rvCategoryList.layoutManager = GridLayoutManager(mainScreenBottomNav,2)
+        binding.rvCategoryList.adapter = categoryAdapter
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -80,6 +95,7 @@ class AddEventsFragment : Fragment() {
 
             }
         }
+
         return binding.root
     }
 
@@ -108,6 +124,158 @@ class AddEventsFragment : Fragment() {
             })
         }
 
+        val items = listOf("Custom", "Starters", "Main Course", "Dessert")
+        val adapter = ArrayAdapter(mainScreenBottomNav, android.R.layout.simple_spinner_item, items)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.CategorySpinner.adapter = adapter
+
+        binding.CategorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                when (selectedItem) {
+                    "Custom" -> {
+                        // Handle "Custom" option
+                        categoryList.clear()
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Pizza",
+                                check = false
+                            )
+                        )
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Burger",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Sandwich",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Dal Makhni",
+                                check = false
+                            )
+                        )
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Shahi Paneer",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Mix Veg",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Chapati",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Ice Cream",
+                                check = false
+                            )
+                        )
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Ras Malai",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Jalebi",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Gulab Jamun",
+                                check = false
+                            ))
+                        categoryAdapter.notifyDataSetChanged()
+                    }
+                    "Starters" -> {
+                        // Handle "Starters" option
+                        categoryList.clear()
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Pizza",
+                                check = false
+                            )
+                        )
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Burger",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Sandwich",
+                                check = false
+                            ))
+                        categoryAdapter.notifyDataSetChanged()
+                    }
+                    "Main Course" -> {
+                        // Handle "Main Course" option
+                        categoryList.clear()
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Dal Makhni",
+                                check = false
+                            )
+                        )
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Shahi Paneer",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Mix Veg",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Chapati",
+                                check = false
+                            ))
+                        categoryAdapter.notifyDataSetChanged()
+                    }
+                    "Dessert" -> {
+                        // Handle "Dessert" option
+                        categoryList.clear()
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Ice Cream",
+                                check = false
+                            )
+                        )
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Ras Malai",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Jalebi",
+                                check = false
+                            ))
+                        categoryList.add(
+                            CategoryModel(
+                                name = "Gulab Jamun",
+                                check = false
+                            ))
+                        categoryAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle case where nothing is selected
+            }
+        }
     }
 
     companion object {

@@ -25,7 +25,7 @@ class WalkthroughAdapter(private val screens: List<WalkthroughModel>) :
     override fun getItemCount(): Int = screens.size
 
     class WalkthroughViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView: ImageView = itemView.findViewById(R.id.imageView)
+        private val imageView: ImageView =  itemView.findViewById(R.id.imageView)
         private val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
         private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
 

@@ -7,13 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
+import com.harjot.foodservicesuser.adapters.EventListAdapter
 import com.harjot.foodservicesuser.adapters.HomeAddsAdapter
+import com.harjot.foodservicesuser.adapters.HomeTrendingAdapter
 import com.harjot.foodservicesuser.adapters.WalkthroughAdapter
 import com.harjot.foodservicesuser.databinding.FragmentHomeScreenBinding
+import com.harjot.foodservicesuser.models.EventsModel
 import com.harjot.foodservicesuser.models.HomeAddsModel
+import com.harjot.foodservicesuser.models.HomeTrendingModel
 import com.harjot.foodservicesuser.models.WalkthroughModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,6 +36,8 @@ class HomeScreen : Fragment() {
         FragmentHomeScreenBinding.inflate(layoutInflater)
     }
     lateinit var mainScreenBottomNav: MainScreenBottomNav
+    var  trendingList = ArrayList<HomeTrendingModel>()
+    lateinit var homeTrendingAdapter: HomeTrendingAdapter
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -38,6 +45,13 @@ class HomeScreen : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainScreenBottomNav = activity as MainScreenBottomNav
+
+        homeTrendingAdapter = HomeTrendingAdapter(trendingList,mainScreenBottomNav)
+        binding.rvHomeTrendings.layoutManager = LinearLayoutManager(mainScreenBottomNav,
+            LinearLayoutManager.HORIZONTAL,
+            false)
+        binding.rvHomeTrendings.adapter = homeTrendingAdapter
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -52,6 +66,39 @@ class HomeScreen : Fragment() {
         val viewPager = binding.viewPager
         val adapter = HomeAddsAdapter(getScreens())
         viewPager.adapter = adapter
+
+        trendingList.clear()
+        trendingList.add(
+            HomeTrendingModel(
+                name = "Pizza",
+                imageRes = R.drawable.img_1,
+                catersName = "Harjot Singh"
+            ))
+        trendingList.add(
+            HomeTrendingModel(
+                name = "Burger",
+                imageRes = R.drawable.add_1,
+                catersName = "Harjot Singh"
+            ))
+        trendingList.add(
+            HomeTrendingModel(
+                name = "Sandwich",
+                imageRes = R.drawable.add_3,
+                catersName = "Harjot Singh"
+            ))
+        trendingList.add(
+            HomeTrendingModel(
+                name = "Fries",
+                imageRes = R.drawable.add_2,
+                catersName = "Harjot Singh"
+            ))
+        trendingList.add(
+            HomeTrendingModel(
+                name = "Mocktails",
+                imageRes = R.drawable.test,
+                catersName = "Harjot Singh"
+            ))
+        homeTrendingAdapter.notifyDataSetChanged()
 
         return binding.root
     }
