@@ -1,11 +1,15 @@
 package com.harjot.foodservicesuser.fragments.infosection
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.harjot.foodservicesuser.MainScreenBottomNav
@@ -29,6 +33,21 @@ class InfoScreen : Fragment() {
     }
     val auth = Firebase.auth
     lateinit var mainScreenBottomNav: MainScreenBottomNav
+
+    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+                Log.d("ImageURI", "Selected Image URI: $it") // Debugging Log
+
+                binding.ivProfileImage.setImageURI(uri) // Try setting image directly
+
+                Glide.with(requireContext()) // Glide for better loading
+                    .load(uri)
+                    .placeholder(R.drawable.ic_person) // Placeholder image
+                    .error(R.drawable.ic_person) // Error fallback
+                    .into(binding.ivProfileImage)
+        }
+    }
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -53,6 +72,9 @@ class InfoScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.ivChangeImage.setOnClickListener {
+            pickImage.launch("image/*")
+        }
         binding.btnLogout.setOnClickListener {
             auth.signOut()
             var intent = Intent(mainScreenBottomNav, AuthenticationActivity::class.java)

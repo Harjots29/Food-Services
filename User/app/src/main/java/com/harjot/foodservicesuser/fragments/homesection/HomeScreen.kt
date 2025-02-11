@@ -105,8 +105,48 @@ class HomeScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupAutoScroll(binding.viewPager, 3000L)
+
+        var previousScrollY = 0
+
+        binding.homeScrollView.viewTreeObserver.addOnScrollChangedListener {
+            val scrollY = binding.homeScrollView.scrollY
+            val btnHome = mainScreenBottomNav.binding.btnHome
+            val btnEvent = mainScreenBottomNav.binding.btnEvent
+            val btnInfo = mainScreenBottomNav.binding.btnInfo
+            val btnCart = mainScreenBottomNav.binding.btnCart
+
+            if (scrollY > previousScrollY) {
+                // Scrolling Down - Hide
+                btnHome.animate().alpha(0f).setDuration(200).withEndAction {
+                    btnHome.visibility = View.GONE
+                }
+                btnEvent.animate().alpha(0f).setDuration(200).withEndAction {
+                    btnEvent.visibility = View.GONE
+                }
+                btnInfo.animate().alpha(0f).setDuration(200).withEndAction {
+                    btnInfo.visibility = View.GONE
+                }
+                btnCart.animate().alpha(0f).setDuration(200).withEndAction {
+                    btnCart.visibility = View.GONE
+                }
+            } else if (scrollY < previousScrollY) {
+                // Scrolling Up - Show
+                btnHome.visibility = View.VISIBLE
+                btnHome.animate().alpha(1f).setDuration(200)
+
+                btnEvent.visibility = View.VISIBLE
+                btnEvent.animate().alpha(1f).setDuration(200)
+
+                btnInfo.visibility = View.VISIBLE
+                btnInfo.animate().alpha(1f).setDuration(200)
+
+                btnCart.visibility = View.VISIBLE
+                btnCart.animate().alpha(1f).setDuration(200)
+            }
+            previousScrollY = scrollY
+        }
+
     }
 
     companion object {
