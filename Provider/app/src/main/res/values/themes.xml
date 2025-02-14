@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.FoodServicesProvider" parent="Base.Theme.FoodServicesProvider" />
+    <style name="AppTheme.SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/red</item>
+        <item name="searchIcon">@drawable/ic_search</item>
+        <item name="tint">@color/red</item>
+    </style>
 </resources>

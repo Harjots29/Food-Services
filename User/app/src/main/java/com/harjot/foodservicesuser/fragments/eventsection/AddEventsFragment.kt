@@ -1,6 +1,8 @@
 package com.harjot.foodservicesuser.fragments.eventsection
 
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +15,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
 import com.harjot.foodservicesuser.adapters.CategoryAdapter
@@ -124,10 +127,39 @@ class AddEventsFragment : Fragment() {
             })
         }
 
-        val items = listOf("Custom", "Starters", "Main Course", "Dessert")
-        val adapter = ArrayAdapter(mainScreenBottomNav, android.R.layout.simple_spinner_item, items)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.CategorySpinner.adapter = adapter
+        val eventItems = listOf("Birthday", "Anniversary", "Wedding", "Other")
+        val eventAdapter = ArrayAdapter(mainScreenBottomNav, android.R.layout.simple_spinner_item, eventItems)
+        eventAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.EventSpinner.adapter = eventAdapter
+
+        binding.EventSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = parent?.getItemAtPosition(position).toString()
+                when (selectedItem) {
+                    "Birthday" -> {
+                        // Handle "Birthday" option
+                    }
+                    "Anniversary" -> {
+                        // Handle "Anniversary" option
+                    }
+                    "Wedding" -> {
+                        // Handle "Wedding" option
+                    }
+                    "Other" -> {
+                        // Handle "Other" option
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle case where nothing is selected
+            }
+        }
+
+        val categoryItems = listOf("Custom", "Starters", "Main Course", "Dessert")
+        val categorySpinnerAdapter = ArrayAdapter(mainScreenBottomNav, android.R.layout.simple_spinner_item, categoryItems)
+        categorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.CategorySpinner.adapter = categorySpinnerAdapter
 
         binding.CategorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -274,6 +306,46 @@ class AddEventsFragment : Fragment() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Handle case where nothing is selected
+            }
+        }
+
+        binding.btnAddEvent.setOnClickListener {
+            if(binding.tvTime.text == "Select Time"){
+                val snackbar = Snackbar.make(it, "You have not selected the Time!", Snackbar.LENGTH_INDEFINITE)
+                    snackbar.setAction("Ok") { snackbar.dismiss() }
+
+                val snackbarView = snackbar.view
+                snackbarView.setBackgroundColor(Color.TRANSPARENT)
+
+                // Custom background of snackbar with rounded corners
+                val background = GradientDrawable()
+                background.cornerRadius = 50f
+
+                // Apply background
+                snackbarView.background = background
+                snackbarView.elevation = 20f
+
+                val params = snackbarView.layoutParams as ViewGroup.MarginLayoutParams
+                params.setMargins(20, 0, 20, 100) // Left, Top, Right, Bottom Margin
+                snackbarView.layoutParams = params
+
+                var textView = snackbarView
+                    .findViewById<TextView>(
+                        com.google.android.material.R.id.snackbar_text
+                    )
+                var actionText = snackbarView
+                    .findViewById<TextView>(
+                        com.google.android.material.R.id.snackbar_action
+                    )
+                textView.textSize = 18f
+
+                actionText.textSize = 18f
+
+                snackbar.setBackgroundTint(resources.getColor(R.color.red))
+                snackbar.setTextColor(Color.WHITE)
+                snackbar.setActionTextColor(Color.WHITE)
+
+                    .show()
             }
         }
     }

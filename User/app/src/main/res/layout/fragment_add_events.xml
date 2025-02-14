@@ -264,11 +264,43 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <TextView
-            android:id="@+id/tvSelectCategory"
+            android:id="@+id/tvSelectEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="30dp"
+            android:gravity="start|center"
+            android:text="Select Event"
+            android:textSize="25sp"
+            android:fontFamily="@font/aclonica"
+            android:textColor="@color/red"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DateLayout"
+            app:layout_constraintBottom_toTopOf="@+id/cvEventSpinner"/>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvEventSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
+            android:backgroundTint="@color/more_light_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSelectEvent">
+            <Spinner
+                android:id="@+id/EventSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+        </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/tvSelectCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
             android:gravity="start|center"
             android:text="Select Category"
             android:textSize="25sp"
@@ -276,7 +308,7 @@
             android:textColor="@color/red"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DateLayout"
+            app:layout_constraintTop_toBottomOf="@+id/cvEventSpinner"
             app:layout_constraintBottom_toTopOf="@+id/cvSpinner"/>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvSpinner"
@@ -296,6 +328,7 @@
                 android:layout_height="50dp"/>
         </com.google.android.material.card.MaterialCardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -310,5 +343,18 @@
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"/>
         </androidx.cardview.widget.CardView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/cvRecycler"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginVertical="30dp"
+            app:cornerRadius="15dp"
+            android:text="Add Event"
+            android:backgroundTint="@color/red"
+            android:fontFamily="sans-serif-black"
+            android:paddingHorizontal="40dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_graph.xml"
+    app:startDestination="@id/loginScreen">
+    <fragment
+        android:id="@+id/loginScreen"
+        android:name="com.harjot.foodservicesprovider.authentication.LoginScreen"
+        android:label="LoginScreen"
+        tools:layout="@layout/fragment_login_screen"/>
+    <fragment
+        android:id="@+id/signupScreen"
+        android:name="com.harjot.foodservicesprovider.authentication.SignupScreen"
+        android:label="fragment_signup_screen"
+        tools:layout="@layout/fragment_signup_screen" />
+    <fragment
+        android:id="@+id/forgotPasswordScreen"
+        android:name="com.harjot.foodservicesprovider.authentication.ForgotPasswordScreen"
+        android:label="ForgotPasswordScreen"
+        tools:layout="@layout/fragment_forgot_password_screen"/>
+</navigation>
