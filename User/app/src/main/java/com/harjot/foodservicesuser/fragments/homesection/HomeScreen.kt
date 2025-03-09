@@ -1,5 +1,9 @@
 package com.harjot.foodservicesuser.fragments.homesection
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,8 +11,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
 import com.harjot.foodservicesuser.adapters.EventListAdapter
@@ -20,6 +28,8 @@ import com.harjot.foodservicesuser.models.EventsModel
 import com.harjot.foodservicesuser.models.HomeAddsModel
 import com.harjot.foodservicesuser.models.HomeTrendingModel
 import com.harjot.foodservicesuser.models.WalkthroughModel
+import java.io.IOException
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +45,9 @@ class HomeScreen : Fragment() {
     val binding by lazy {
         FragmentHomeScreenBinding.inflate(layoutInflater)
     }
-    lateinit var mainScreenBottomNav: MainScreenBottomNav
+    val location_permissions_req_code=1000
+    val mainScreenBottomNav: MainScreenBottomNav by lazy { activity as MainScreenBottomNav }
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     var  trendingList = ArrayList<HomeTrendingModel>()
     lateinit var homeTrendingAdapter: HomeTrendingAdapter
     // TODO: Rename and change types of parameters
@@ -44,8 +56,14 @@ class HomeScreen : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainScreenBottomNav = activity as MainScreenBottomNav
-
+        fusedLocationProviderClient=LocationServices.getFusedLocationProviderClient(mainScreenBottomNav)
+        if (checkPermissions()){
+            print("Permissions checked")
+            getLastLocation()
+        }
+        else{
+            requestPermission()
+        }
         homeTrendingAdapter = HomeTrendingAdapter(trendingList,mainScreenBottomNav)
         binding.rvHomeTrendings.layoutManager = LinearLayoutManager(mainScreenBottomNav,
             LinearLayoutManager.HORIZONTAL,
@@ -148,6 +166,87 @@ class HomeScreen : Fragment() {
         }
 
     }
+    private fun checkPermissions(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            mainScreenBottomNav,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+    private fun requestPermission(){
+        ActivityCompat.requestPermissions(
+            mainScreenBottomNav,
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION , Manifest.permission.ACCESS_FINE_LOCATION),
+            1000
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            location_permissions_req_code ->{
+                if(grantResults.isNotEmpty() && grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                    getLastLocation()
+                }
+                else{
+                    Toast.makeText(mainScreenBottomNav, "dekle bhai esa krega", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
+    @SuppressLint("MissingPermission")
+    private fun getLastLocation() {
+        // Loader view = visible
+        if (ActivityCompat.checkSelfPermission(
+                mainScreenBottomNav, Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                mainScreenBottomNav, Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+
+        fusedLocationProviderClient.lastLocation
+            .addOnSuccessListener { location ->
+                // Loader view = gone
+                if (location != null) {
+                    val userLati = location.latitude
+                    val userLongi = location.longitude
+                    val address = getCompleteAddressString(userLati, userLongi)
+                    binding.addressTv.text = address
+                } else {
+                    binding.addressTv.text = "Location not available"
+                }
+            }
+            .addOnFailureListener { e ->
+                binding.addressTv.text = "Failed to get location: ${e.message}"
+            }
+    }
+
+
+    private fun getCompleteAddressString(lat: Double, long: Double): String {
+        val geocoder = Geocoder(mainScreenBottomNav, Locale.getDefault())
+
+        return try {
+            val addressList = geocoder.getFromLocation(lat, long, 1)
+            if ( !addressList.isNullOrEmpty( )) {
+                addressList[0].getAddressLine(0) ?: "Address not found"
+            } else {
+                "No address found"
+            }
+        } catch (e: IOException) {
+            "Error: ${e.message}"
+        } catch (e: Exception) {
+            "Unexpected error occurred"
+        }
+    }
+
+
 
     companion object {
         /**
