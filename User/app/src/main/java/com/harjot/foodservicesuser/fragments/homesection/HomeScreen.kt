@@ -16,6 +16,9 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
@@ -180,6 +183,7 @@ class HomeScreen : Fragment() {
         )
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -200,27 +204,35 @@ class HomeScreen : Fragment() {
     }
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
-        // Loader view = visible
-        if (ActivityCompat.checkSelfPermission(
-                mainScreenBottomNav, Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                mainScreenBottomNav, Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-
         fusedLocationProviderClient.lastLocation
             .addOnSuccessListener { location ->
-                // Loader view = gone
                 if (location != null) {
                     val userLati = location.latitude
                     val userLongi = location.longitude
                     val address = getCompleteAddressString(userLati, userLongi)
                     binding.addressTv.text = address
                 } else {
-                    binding.addressTv.text = "Location not available"
+                    // Fallback to actively request location updates
+                    val locationRequest = LocationRequest.create().apply {
+                        priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                        interval = 5000 // 5 seconds interval for location updates like enabling gps
+                        fastestInterval = 2000
+                        numUpdates = 1 // Get only one update
+                    }
+                    fusedLocationProviderClient.requestLocationUpdates(
+                        locationRequest,
+                        object : LocationCallback() {
+                            override fun onLocationResult(locationResult: LocationResult) {
+                                val location = locationResult.lastLocation
+                                val address = getCompleteAddressString(
+                                    location.latitude,
+                                    location.longitude
+                                )
+                                binding.addressTv.text = address
+                            }
+                        },
+                        Looper.getMainLooper()
+                    )
                 }
             }
             .addOnFailureListener { e ->
@@ -231,7 +243,6 @@ class HomeScreen : Fragment() {
 
     private fun getCompleteAddressString(lat: Double, long: Double): String {
         val geocoder = Geocoder(mainScreenBottomNav, Locale.getDefault())
-
         return try {
             val addressList = geocoder.getFromLocation(lat, long, 1)
             if ( !addressList.isNullOrEmpty( )) {
@@ -246,27 +257,6 @@ class HomeScreen : Fragment() {
         }
     }
 
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeScreen.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeScreen().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
     private fun getScreens(): List<HomeAddsModel> {
         return listOf(
             HomeAddsModel(R.drawable.add_1),
