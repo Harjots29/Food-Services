@@ -8,9 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.harjot.foodservicesprovider.MainScreenBottomNav
 import com.harjot.foodservicesprovider.R
 import com.harjot.foodservicesprovider.databinding.FragmentLoginScreenBinding
 import java.util.regex.Pattern
@@ -29,7 +28,7 @@ class LoginScreen : Fragment() {
     val binding by lazy {
         FragmentLoginScreenBinding.inflate(layoutInflater)
     }
-    val auth = Firebase.auth
+    val auth = FirebaseAuth.getInstance()
     lateinit var authenticationActivity: AuthenticationActivity
     // TODO: Rename and change types of parameters
     private var param1: String? = null
