@@ -37,6 +37,8 @@ class MainScreenBottomNav : AppCompatActivity() {
         setContentView(binding.root)
         navController = findNavController(R.id.navHostFragment)
         binding.btnCart.visibility = View.VISIBLE
+        binding.btnQuantity.visibility = View.GONE
+        binding.btnAddToCart.visibility = View.GONE
 
 //        val blurEffect = RenderEffect.createBlurEffect(
 //            10f,
@@ -60,6 +62,8 @@ class MainScreenBottomNav : AppCompatActivity() {
 
             binding.btnCart.visibility = View.VISIBLE
             binding.fabEventAdd.visibility = View.GONE
+            binding.btnQuantity.visibility = View.GONE
+            binding.btnAddToCart.visibility = View.GONE
 
             navController.navigate(R.id.homeScreen)
         }
@@ -73,6 +77,8 @@ class MainScreenBottomNav : AppCompatActivity() {
 
             binding.btnCart.visibility = View.GONE
             binding.fabEventAdd.visibility = View.VISIBLE
+            binding.btnQuantity.visibility = View.GONE
+            binding.btnAddToCart.visibility = View.GONE
 
             navController.navigate(R.id.eventListScreen)
         }
@@ -86,8 +92,21 @@ class MainScreenBottomNav : AppCompatActivity() {
 
             binding.fabEventAdd.visibility = View.GONE
             binding.btnCart.visibility = View.GONE
+            binding.btnQuantity.visibility = View.GONE
+            binding.btnAddToCart.visibility = View.GONE
 
             navController.navigate(R.id.infoScreen)
+        }
+        binding.btnCart.setOnClickListener {
+            navController.navigate(R.id.cartScreen)
+            binding.btnCart.visibility = View.GONE
+            binding.btnQuantity.visibility = View.GONE
+            binding.btnAddToCart.visibility = View.GONE
+            binding.fabEventAdd.visibility = View.GONE
+            binding.btnHome.visibility = View.GONE
+            binding.btnInfo.visibility = View.GONE
+            binding.btnEvent.visibility = View.GONE
+
         }
     }
 
@@ -110,6 +129,8 @@ class MainScreenBottomNav : AppCompatActivity() {
 
                 binding.btnCart.visibility = View.VISIBLE
                 binding.fabEventAdd.visibility = View.GONE
+                binding.btnQuantity.visibility = View.GONE
+                binding.btnAddToCart.visibility = View.GONE
                 navController.popBackStack(R.id.homeScreen,false)
             }
             R.id.infoScreen -> {
@@ -122,11 +143,44 @@ class MainScreenBottomNav : AppCompatActivity() {
 
                 binding.btnCart.visibility = View.VISIBLE
                 binding.fabEventAdd.visibility = View.GONE
+                binding.btnQuantity.visibility = View.GONE
+                binding.btnAddToCart.visibility = View.GONE
                 navController.popBackStack(R.id.homeScreen,false)
             }
             R.id.addEventsFragment -> {
                 binding.fabEventAdd.visibility = View.VISIBLE
                 super.onBackPressed()
+            }
+            R.id.aboutFoodItemScreen -> {
+                binding.btnHome.setCardBackgroundColor(getResources().getColor(R.color.red))
+                binding.ivHome.setColorFilter(ContextCompat.getColor(this, R.color.white))
+                binding.btnEvent.setCardBackgroundColor(getResources().getColor(R.color.white))
+                binding.ivEvent.setColorFilter(ContextCompat.getColor(this, R.color.red))
+                binding.btnInfo.setCardBackgroundColor(getResources().getColor(R.color.white))
+                binding.ivInfo.setColorFilter(ContextCompat.getColor(this, R.color.red))
+
+                binding.btnCart.visibility = View.VISIBLE
+                binding.btnHome.visibility = View.VISIBLE
+                binding.btnInfo.visibility = View.VISIBLE
+                binding.btnEvent.visibility = View.VISIBLE
+                binding.fabEventAdd.visibility = View.GONE
+                binding.btnQuantity.visibility = View.GONE
+                binding.btnAddToCart.visibility = View.GONE
+
+                binding.tvQuantity.text = "1"
+
+                navController.popBackStack(R.id.homeScreen,false)
+            }
+            R.id.cartScreen -> {
+                binding.btnCart.visibility = View.VISIBLE
+                binding.btnQuantity.visibility = View.GONE
+                binding.btnAddToCart.visibility = View.GONE
+                binding.fabEventAdd.visibility = View.GONE
+                binding.btnHome.visibility = View.VISIBLE
+                binding.btnInfo.visibility = View.VISIBLE
+                binding.btnEvent.visibility = View.VISIBLE
+
+                navController.popBackStack(R.id.homeScreen,false)
             }
             else -> {
                 // For other fragments, use the default back action

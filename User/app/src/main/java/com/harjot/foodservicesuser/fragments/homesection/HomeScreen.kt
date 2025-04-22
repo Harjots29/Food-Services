@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -27,6 +28,7 @@ import com.harjot.foodservicesuser.adapters.HomeAddsAdapter
 import com.harjot.foodservicesuser.adapters.HomeTrendingAdapter
 import com.harjot.foodservicesuser.adapters.WalkthroughAdapter
 import com.harjot.foodservicesuser.databinding.FragmentHomeScreenBinding
+import com.harjot.foodservicesuser.interfaces.HomeTrendingInterface
 import com.harjot.foodservicesuser.models.EventsModel
 import com.harjot.foodservicesuser.models.HomeAddsModel
 import com.harjot.foodservicesuser.models.HomeTrendingModel
@@ -44,7 +46,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeScreen.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomeScreen : Fragment() {
+class HomeScreen : Fragment(),HomeTrendingInterface {
     val binding by lazy {
         FragmentHomeScreenBinding.inflate(layoutInflater)
     }
@@ -67,7 +69,7 @@ class HomeScreen : Fragment() {
         else{
             requestPermission()
         }
-        homeTrendingAdapter = HomeTrendingAdapter(trendingList,mainScreenBottomNav)
+        homeTrendingAdapter = HomeTrendingAdapter(trendingList,mainScreenBottomNav,this)
         binding.rvHomeTrendings.layoutManager = LinearLayoutManager(mainScreenBottomNav,
             LinearLayoutManager.HORIZONTAL,
             false)
@@ -121,6 +123,10 @@ class HomeScreen : Fragment() {
             ))
         homeTrendingAdapter.notifyDataSetChanged()
 
+//        mainScreenBottomNav.binding.btnCart.setOnClickListener {
+//            findNavController().navigate(R.id.cartScreen)
+//        }
+
         return binding.root
     }
 
@@ -128,45 +134,45 @@ class HomeScreen : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupAutoScroll(binding.viewPager, 3000L)
 
-        var previousScrollY = 0
-
-        binding.homeScrollView.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY = binding.homeScrollView.scrollY
-            val btnHome = mainScreenBottomNav.binding.btnHome
-            val btnEvent = mainScreenBottomNav.binding.btnEvent
-            val btnInfo = mainScreenBottomNav.binding.btnInfo
-            val btnCart = mainScreenBottomNav.binding.btnCart
-
-            if (scrollY > previousScrollY) {
-                // Scrolling Down - Hide
-                btnHome.animate().alpha(0f).setDuration(200).withEndAction {
-                    btnHome.visibility = View.GONE
-                }
-                btnEvent.animate().alpha(0f).setDuration(200).withEndAction {
-                    btnEvent.visibility = View.GONE
-                }
-                btnInfo.animate().alpha(0f).setDuration(200).withEndAction {
-                    btnInfo.visibility = View.GONE
-                }
-                btnCart.animate().alpha(0f).setDuration(200).withEndAction {
-                    btnCart.visibility = View.GONE
-                }
-            } else if (scrollY < previousScrollY) {
-                // Scrolling Up - Show
-                btnHome.visibility = View.VISIBLE
-                btnHome.animate().alpha(1f).setDuration(200)
-
-                btnEvent.visibility = View.VISIBLE
-                btnEvent.animate().alpha(1f).setDuration(200)
-
-                btnInfo.visibility = View.VISIBLE
-                btnInfo.animate().alpha(1f).setDuration(200)
-
-                btnCart.visibility = View.VISIBLE
-                btnCart.animate().alpha(1f).setDuration(200)
-            }
-            previousScrollY = scrollY
-        }
+//        var previousScrollY = 0
+//
+//        binding.homeScrollView.viewTreeObserver.addOnScrollChangedListener {
+//            val scrollY = binding.homeScrollView.scrollY
+//            val btnHome = mainScreenBottomNav.binding.btnHome
+//            val btnEvent = mainScreenBottomNav.binding.btnEvent
+//            val btnInfo = mainScreenBottomNav.binding.btnInfo
+//            val btnCart = mainScreenBottomNav.binding.btnCart
+//
+//            if (scrollY > previousScrollY) {
+//                // Scrolling Down - Hide
+//                btnHome.animate().alpha(0f).setDuration(200).withEndAction {
+//                    btnHome.visibility = View.GONE
+//                }
+//                btnEvent.animate().alpha(0f).setDuration(200).withEndAction {
+//                    btnEvent.visibility = View.GONE
+//                }
+//                btnInfo.animate().alpha(0f).setDuration(200).withEndAction {
+//                    btnInfo.visibility = View.GONE
+//                }
+//                btnCart.animate().alpha(0f).setDuration(200).withEndAction {
+//                    btnCart.visibility = View.GONE
+//                }
+//            } else if (scrollY < previousScrollY) {
+//                // Scrolling Up - Show
+//                btnHome.visibility = View.VISIBLE
+//                btnHome.animate().alpha(1f).setDuration(200)
+//
+//                btnEvent.visibility = View.VISIBLE
+//                btnEvent.animate().alpha(1f).setDuration(200)
+//
+//                btnInfo.visibility = View.VISIBLE
+//                btnInfo.animate().alpha(1f).setDuration(200)
+//
+//                btnCart.visibility = View.VISIBLE
+//                btnCart.animate().alpha(1f).setDuration(200)
+//            }
+//            previousScrollY = scrollY
+//        }
 
     }
     private fun checkPermissions(): Boolean {
@@ -196,7 +202,7 @@ class HomeScreen : Fragment() {
                     getLastLocation()
                 }
                 else{
-                    Toast.makeText(mainScreenBottomNav, "dekle bhai esa krega", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mainScreenBottomNav, "dekhle bhai esa krega?", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -286,5 +292,9 @@ class HomeScreen : Fragment() {
                 currentPage = position
             }
         })
+    }
+
+    override fun onItemClick(position: Int) {
+        findNavController().navigate(R.id.aboutFoodItemScreen)
     }
 }

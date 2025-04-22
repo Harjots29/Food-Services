@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
+import com.harjot.foodservicesuser.interfaces.HomeTrendingInterface
 import com.harjot.foodservicesuser.models.CategoryModel
 import com.harjot.foodservicesuser.models.HomeTrendingModel
 
-class HomeTrendingAdapter(var arrayList:ArrayList<HomeTrendingModel>, var mainScreenBottomNav: MainScreenBottomNav):
+class HomeTrendingAdapter(var arrayList:ArrayList<HomeTrendingModel>, var mainScreenBottomNav: MainScreenBottomNav,var homeTrendingInterface: HomeTrendingInterface):
     RecyclerView.Adapter<HomeTrendingAdapter.ViewHolder>() {
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var name = view.findViewById<TextView>(R.id.tvName)
@@ -38,7 +39,7 @@ class HomeTrendingAdapter(var arrayList:ArrayList<HomeTrendingModel>, var mainSc
         holder.name.setText(arrayList[position].name)
         holder.catersName.setText(arrayList[position].catersName)
         holder.cvItem.setOnClickListener {
-
+            homeTrendingInterface.onItemClick(position)
         }
         Glide
             .with(mainScreenBottomNav)

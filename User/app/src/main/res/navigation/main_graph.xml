@@ -16,7 +16,6 @@
         android:name="com.harjot.foodservicesuser.fragments.eventsection.EventListScreen"
         tools:layout="@layout/fragment_event_list_screen"
         android:label="Filter Screen" />
-
     <fragment
         android:id="@+id/infoScreen"
         android:name="com.harjot.foodservicesuser.fragments.infosection.InfoScreen"
@@ -27,4 +26,19 @@
         android:name="com.harjot.foodservicesuser.fragments.eventsection.AddEventsFragment"
         android:label="fragment_add_events"
         tools:layout="@layout/fragment_add_events" />
+    <fragment
+        android:id="@+id/aboutFoodItemScreen"
+        android:name="com.harjot.foodservicesuser.fragments.homesection.AboutFoodItemScreen"
+        android:label="fragment_about_food_item_screen"
+        tools:layout="@layout/fragment_about_food_item_screen" />
+    <fragment
+        android:id="@+id/cartScreen"
+        android:name="com.harjot.foodservicesuser.fragments.homesection.CartScreen"
+        android:label="fragment_cart_screen"
+        tools:layout="@layout/fragment_cart_screen" />
+    <fragment
+        android:id="@+id/requestsScreen"
+        android:name="com.harjot.foodservicesuser.fragments.providersection.RequestsScreen"
+        android:label="fragment_requests_screen"
+        tools:layout="@layout/fragment_requests_screen" />
 </navigation>
