@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
     tools:context=".fragments.providersection.RequestsScreen">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Orders"
+        android:textColor="@color/red"
+        android:fontFamily="@font/aclonica"
+        android:paddingStart="10dp"
+        android:textSize="20sp"
+        android:drawableLeft="@drawable/ic_back"
+        android:layout_marginTop="40dp"/>
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/div"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Requests Screen"
-        android:textSize="30sp"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOrderList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"/>
+    </ScrollView>
 
-</FrameLayout>
+</LinearLayout>

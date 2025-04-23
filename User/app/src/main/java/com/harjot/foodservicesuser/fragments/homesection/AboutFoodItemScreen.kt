@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
 import com.harjot.foodservicesuser.databinding.FragmentAboutFoodItemScreenBinding
+import com.harjot.foodservicesuser.models.OrdersModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +28,9 @@ class AboutFoodItemScreen : Fragment() {
         FragmentAboutFoodItemScreenBinding.inflate(layoutInflater)
     }
     lateinit var mainScreenBottomNav: MainScreenBottomNav
+    var database = Firebase.firestore
+    val collectionName = "Orders"
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -51,11 +58,13 @@ class AboutFoodItemScreen : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val price = binding.tvPrice.text.toString()
+        var tvPrice = binding.tvPrice.text
         mainScreenBottomNav.binding.ivAdd.setOnClickListener {
             mainScreenBottomNav.binding.tvQuantity.text =
                 (mainScreenBottomNav.binding.tvQuantity.text.toString().toInt() + 1).toString()
             binding.tvPrice.text = (mainScreenBottomNav.binding.tvQuantity.text.toString().toInt()
                     * price.toInt()).toString()
+            tvPrice = binding.tvPrice.text
         }
         mainScreenBottomNav.binding.ivSubtract.setOnClickListener {
             if(mainScreenBottomNav.binding.tvQuantity.text.toString().toInt() > 1) {
@@ -63,8 +72,38 @@ class AboutFoodItemScreen : Fragment() {
                     (mainScreenBottomNav.binding.tvQuantity.text.toString().toInt() - 1).toString()
                 binding.tvPrice.text = (mainScreenBottomNav.binding.tvQuantity.text.toString().toInt()
                         * price.toInt()).toString()
+                tvPrice = binding.tvPrice.text
             }
         }
+
+        binding.tvBack.setOnClickListener {
+            mainScreenBottomNav.onBackPressed()
+        }
+
+        mainScreenBottomNav.binding.btnAddToCart.setOnClickListener {
+            binding.tvPrice.text = price
+            var model = OrdersModel(
+                id = "",
+                item = binding.tvItemName.text.toString(),
+                price = tvPrice.toString(),
+                quantity = mainScreenBottomNav.binding.tvQuantity.text.toString()
+            )
+            database.collection(collectionName).add(model)
+                .addOnSuccessListener {
+                    mainScreenBottomNav.binding.btnAddToCart.visibility = View.GONE
+                    mainScreenBottomNav.binding.btnQuantity.visibility = View.GONE
+                    mainScreenBottomNav.binding.notificationDot.visibility = View.VISIBLE
+                    mainScreenBottomNav.binding.btnCart.visibility = View.VISIBLE
+                    Toast.makeText(mainScreenBottomNav, "Success", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener { exception->
+                    mainScreenBottomNav.binding.btnAddToCart.visibility = View.VISIBLE
+                    mainScreenBottomNav.binding.btnQuantity.visibility = View.VISIBLE
+                    mainScreenBottomNav.binding.btnCart.visibility = View.GONE
+                    mainScreenBottomNav.binding.notificationDot.visibility = View.GONE
+                    Toast.makeText(mainScreenBottomNav, "Failed ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
+
         return binding.root
     }
 

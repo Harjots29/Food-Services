@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/tvBack"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Your Orders"
@@ -17,6 +17,7 @@
         android:fontFamily="@font/aclonica"
         android:paddingStart="10dp"
         android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
         android:drawableLeft="@drawable/ic_back"
         android:layout_marginTop="40dp"/>
     <com.google.android.material.divider.MaterialDivider
@@ -26,4 +27,85 @@
         app:layout_constraintTop_toBottomOf="@+id/tvBack"
         android:layout_marginTop="10dp"/>
 
+    <TextView
+        android:id="@+id/tvPriceDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Price Details :"
+        android:fontFamily="sans-serif-black"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/div"
+        android:layout_margin="20dp"/>
+    <LinearLayout
+        android:id="@+id/PriceDetailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceDetails"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price of all items :"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="sans-serif-black"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:textColor="@color/grey"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="$30"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="sans-serif-black"
+            android:textSize="15sp"
+            android:textColor="@color/grey"/>
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/PriceDetailsLayout"
+        android:layout_margin="30dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total :"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="10dp"
+                android:fontFamily="@font/aclonica"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:layout_marginHorizontal="10dp"
+                android:fontFamily="@font/aclonica"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="$30"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/cvTotal">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCartList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="20dp"/>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,8 @@
+package com.harjot.foodservicesuser.models
+
+data class OrdersModel(
+    var id: String?=null,
+    var item: String?=null,
+    var price: String?=null,
+    var quantity: String?=null,
+)

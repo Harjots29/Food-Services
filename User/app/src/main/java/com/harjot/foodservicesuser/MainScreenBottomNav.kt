@@ -99,6 +99,7 @@ class MainScreenBottomNav : AppCompatActivity() {
         }
         binding.btnCart.setOnClickListener {
             navController.navigate(R.id.cartScreen)
+            binding.notificationDot.visibility = View.GONE
             binding.btnCart.visibility = View.GONE
             binding.btnQuantity.visibility = View.GONE
             binding.btnAddToCart.visibility = View.GONE
@@ -131,6 +132,8 @@ class MainScreenBottomNav : AppCompatActivity() {
                 binding.fabEventAdd.visibility = View.GONE
                 binding.btnQuantity.visibility = View.GONE
                 binding.btnAddToCart.visibility = View.GONE
+
+
                 navController.popBackStack(R.id.homeScreen,false)
             }
             R.id.infoScreen -> {
