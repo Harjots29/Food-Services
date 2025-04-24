@@ -1,11 +1,14 @@
-package com.harjot.foodservicesuser.fragments.providersection
+package com.harjot.foodservicesuser.fragments.adminsection
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.harjot.foodservicesuser.R
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.harjot.foodservicesuser.authentication.AuthenticationActivity
 import com.harjot.foodservicesuser.databinding.FragmentRequestsScreenBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +25,10 @@ class RequestsScreen : Fragment() {
     val binding by lazy {
         FragmentRequestsScreenBinding.inflate(layoutInflater)
     }
+    val adminActivity by lazy {
+        activity as AdminActivity
+    }
+    val auth = Firebase.auth
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -39,6 +46,14 @@ class RequestsScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        binding.btnSignOut.setOnClickListener {
+            auth.signOut()
+            var intent = Intent(adminActivity, AuthenticationActivity::class.java)
+            startActivity(intent)
+            adminActivity.finish()
+        }
+
         return binding.root
     }
 

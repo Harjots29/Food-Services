@@ -3,6 +3,7 @@ package com.harjot.foodservicesuser
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.harjot.foodservicesuser.adapters.WalkthroughAdapter
 import com.harjot.foodservicesuser.authentication.AuthenticationActivity
 import com.harjot.foodservicesuser.databinding.ActivityMainBinding
+import com.harjot.foodservicesuser.fragments.adminsection.AdminActivity
 import com.harjot.foodservicesuser.models.WalkthroughModel
 
 class MainActivity : AppCompatActivity() {
@@ -49,9 +51,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.getStartedButton.setOnClickListener {
             if(auth.currentUser!=null){
-                var intent = Intent(this,MainScreenBottomNav::class.java)
-                startActivity(intent)
-                this.finish()
+                if(auth.currentUser?.email == "admin@gmail.com"){
+                    var intent = Intent(this, AdminActivity::class.java)
+                    startActivity(intent)
+                    this.finish()
+                }
+                else{
+                    var intent = Intent(this,MainScreenBottomNav::class.java)
+                    startActivity(intent)
+                    this.finish()
+                }
+
             }else{
                 var intent = Intent(this,AuthenticationActivity::class.java)
                 startActivity(intent)

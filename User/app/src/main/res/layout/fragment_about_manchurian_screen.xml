@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_sandwich"/>
+                android:src="@drawable/img_manchurian"/>
         </androidx.cardview.widget.CardView>
         <LinearLayout
             android:id="@+id/layoutItemName"
@@ -57,7 +57,7 @@
                 android:id="@+id/tvItemName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sandwich"
+                android:text="Manchurian"
                 android:textSize="40sp"
                 android:layout_weight="1"
                 android:textColor="@color/red"
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/layoutItemName"
-            android:text="20"
+            android:text="30"
             android:layout_marginStart="5dp"
             app:layout_constraintStart_toEndOf="@+id/tvCurrency"
             android:textSize="30sp"
@@ -137,70 +137,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRating"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
             android:gravity="center"
+            android:paddingVertical="10dp"
+            android:layout_marginVertical="10dp"
             android:orientation="horizontal">
             <androidx.cardview.widget.CardView
-                android:id="@+id/cvSimple"
+                android:id="@+id/cvHalf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="20dp"
                 android:layout_marginVertical="10dp"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="30dp"
                 android:layout_gravity="center|start">
                 <TextView
-                    android:id="@+id/tvSimple"
+                    android:id="@+id/tvHalf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Simple"
+                    android:text="Half"
                     android:paddingHorizontal="40dp"
                     android:paddingVertical="10dp"
                     android:gravity="center"
                     android:textSize="20sp" />
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
-                android:id="@+id/cvGrilled"
+                android:id="@+id/cvFull"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="20dp"
+                android:layout_gravity="center"
                 android:layout_marginVertical="10dp"
-                android:layout_gravity="center|start">
+                android:layout_marginStart="30dp">
                 <TextView
-                    android:id="@+id/tvGrilled"
+                    android:id="@+id/tvFull"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
-                    android:text="Grilled"
+                    android:text="Full"
                     android:paddingHorizontal="40dp"
-                    android:paddingVertical="10dp"
-                    android:gravity="center"
-                    android:textSize="20sp" />
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutCartegory1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutCartegory"
-            android:layout_marginHorizontal="30dp"
-            android:orientation="horizontal">
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvFullLoaded"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                android:layout_margin="10dp"
-                android:layout_gravity="center|start">
-                <TextView
-                    android:id="@+id/tvFullLoaded"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Full Loaded"
-                    android:paddingHorizontal="20dp"
                     android:paddingVertical="10dp"
                     android:gravity="center"
                     android:textSize="20sp" />
@@ -210,7 +184,7 @@
             android:id="@+id/tvMoreInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/layoutCartegory1"
+            app:layout_constraintTop_toBottomOf="@+id/layoutCartegory"
             android:text="More info"
             android:textSize="35sp"
             android:layout_marginHorizontal="40dp"
@@ -233,7 +207,7 @@
                 android:padding="20dp"
                 android:fontFamily="sans-serif-black"
                 android:textColor="@color/grey"
-                android:text="Fresh, flavorful, and made just the way you like it – our SANDWICHES are the perfect anytime snack or meal. Stuffed with layers of crunchy veggies, creamy spreads, melted cheese, and your choice of fillings, every bite brings a burst of taste and texture. From classic grilled to spicy street-style, we’ve got a sandwich to satisfy every craving. Made fresh, served hot, and always delicious!"/>
+                android:text="Indulge in the bold and irresistible taste of our signature MANCHURIAN – a perfect fusion of crispy fried veggie or chicken balls tossed in a rich, tangy, and spicy Indo-Chinese sauce. Bursting with flavors of garlic, ginger, soy, and spring onions, every bite delivers a satisfying crunch followed by a wave of savory deliciousness. Whether dry or with gravy, it’s a street-style favorite reimagined for your cravings!"/>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

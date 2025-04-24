@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".fragments.providersection.RequestsScreen">
+    tools:context=".fragments.adminsection.RequestsScreen">
 
     <TextView
         android:id="@+id/tvBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Orders"
+        android:text="Requested Orders"
         android:textColor="@color/red"
         android:fontFamily="@font/aclonica"
         android:paddingStart="10dp"
@@ -26,12 +26,20 @@
         android:layout_marginTop="10dp"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvOrderList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="20dp"/>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btnSignOut"
+        android:backgroundTint="@color/red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Sign Out"/>
 
 </LinearLayout>

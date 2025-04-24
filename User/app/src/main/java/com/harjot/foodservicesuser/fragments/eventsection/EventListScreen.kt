@@ -155,6 +155,9 @@ class EventListScreen : Fragment() {
                 venue = "Kartarpur"
             ))
 
+        binding.tvBack.setOnClickListener {
+            mainScreenBottomNav.onBackPressed()
+        }
 
         eventListAdapter.notifyDataSetChanged()
         return binding.root
@@ -165,6 +168,9 @@ class EventListScreen : Fragment() {
         mainScreenBottomNav.binding.fabEventAdd.setOnClickListener {
             mainScreenBottomNav.navController.navigate(R.id.addEventsFragment)
             mainScreenBottomNav.binding.fabEventAdd.visibility = View.GONE
+            mainScreenBottomNav.binding.btnHome.visibility = View.GONE
+            mainScreenBottomNav.binding.btnEvent.visibility = View.GONE
+            mainScreenBottomNav.binding.btnInfo.visibility = View.GONE
         }
         binding.rvEventList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

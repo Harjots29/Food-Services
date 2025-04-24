@@ -37,11 +37,6 @@
         android:label="fragment_cart_screen"
         tools:layout="@layout/fragment_cart_screen" />
     <fragment
-        android:id="@+id/requestsScreen"
-        android:name="com.harjot.foodservicesuser.fragments.providersection.RequestsScreen"
-        android:label="fragment_requests_screen"
-        tools:layout="@layout/fragment_requests_screen" />
-    <fragment
         android:id="@+id/aboutNoodlesScreen"
         android:name="com.harjot.foodservicesuser.fragments.homesection.AboutNoodlesScreen"
         android:label="AboutNoodlesScreen"
@@ -51,4 +46,9 @@
         android:name="com.harjot.foodservicesuser.fragments.homesection.AboutSandwichScreen"
         android:label="AboutSandwichScreen"
         tools:layout="@layout/fragment_about_sandwich_screen"/>
+    <fragment
+        android:id="@+id/aboutManchurianScreen"
+        android:name="com.harjot.foodservicesuser.fragments.homesection.AboutManchurianScreen"
+        android:label="AboutManchurianScreen"
+        tools:layout="@layout/fragment_about_manchurian_screen"/>
 </navigation>

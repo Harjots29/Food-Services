@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.harjot.foodservicesuser.fragments.adminsection.AdminActivity
 import com.harjot.foodservicesuser.MainActivity
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
@@ -82,9 +83,15 @@ class LoginScreen : Fragment() {
                 auth.signInWithEmailAndPassword(email,password)
                     .addOnSuccessListener {
                         binding.btnSubmit.isClickable = true
-                        var intent = Intent(authenticationActivity,MainScreenBottomNav::class.java)
-                        startActivity(intent)
-                        authenticationActivity.finish()
+                        if(email == "admin@gmail.com" && password == "admin@123"){
+                            var intent = Intent(authenticationActivity,AdminActivity::class.java)
+                            startActivity(intent)
+                            authenticationActivity.finish()
+                        }else{
+                            var intent = Intent(authenticationActivity,MainScreenBottomNav::class.java)
+                            startActivity(intent)
+                            authenticationActivity.finish()
+                        }
                     }
                     .addOnFailureListener {
                         binding.btnSubmit.isClickable = true

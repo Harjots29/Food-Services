@@ -145,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="20dp"
-                android:layout_margin="10dp"
+                android:layout_marginVertical="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_gravity="center|start">
                 <TextView
@@ -228,14 +228,14 @@
             android:backgroundTint="@color/light_grey"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="150dp">
+            android:layout_marginBottom="100dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="20dp"
                 android:fontFamily="sans-serif-black"
                 android:textColor="@color/grey"
-                android:text="Pizza, a globally popular dish, originates from Naples, Italy. It's a flatbread base typically topped with tomato sauce, cheese, and various ingredients, baked at high temperatures. The term PIZZA was first recorded in 997 AD in Southern Italy. Pizza has evolved from ancient flatbreads with toppings to the modern dish we know today"/>
+                android:text="Sink your teeth into the ultimate BURGER experience – where juicy, flame-grilled patties meet layers of melted cheese, crisp lettuce, fresh tomatoes, and our signature sauces, all hugged between soft, toasted buns. Whether you're craving classic flavors or bold new twists, every bite is packed with satisfaction. Freshly made, full of flavor, and crafted to perfection – this is not just a burger, it’s your new favorite obsession."/>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

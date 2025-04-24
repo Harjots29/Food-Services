@@ -200,14 +200,14 @@
             android:backgroundTint="@color/light_grey"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="150dp">
+            android:layout_marginBottom="100dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="20dp"
                 android:fontFamily="sans-serif-black"
                 android:textColor="@color/grey"
-                android:text="Pizza, a globally popular dish, originates from Naples, Italy. It's a flatbread base typically topped with tomato sauce, cheese, and various ingredients, baked at high temperatures. The term PIZZA was first recorded in 997 AD in Southern Italy. Pizza has evolved from ancient flatbreads with toppings to the modern dish we know today"/>
+                android:text="Slurpy, spicy, and full of flavor – our NOODLES are a true comfort food classic with an Indo-Chinese twist. Tossed in sizzling sauces with fresh veggies, aromatic spices, and your choice of add-ons, every forkful is a perfect balance of taste and texture. Whether you like them smoky, saucy, or spicy, our noodles are cooked fresh and served hot to satisfy all your cravings!"/>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

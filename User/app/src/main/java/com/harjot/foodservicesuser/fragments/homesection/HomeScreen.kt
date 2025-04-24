@@ -306,7 +306,7 @@ class HomeScreen : Fragment(),HomeTrendingInterface {
                 findNavController().navigate(R.id.aboutSandwichScreen)
             }
             4->{
-
+                findNavController().navigate(R.id.aboutManchurianScreen)
             }
         }
 

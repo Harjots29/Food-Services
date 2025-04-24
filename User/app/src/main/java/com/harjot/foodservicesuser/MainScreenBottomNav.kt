@@ -168,6 +168,9 @@ class MainScreenBottomNav : AppCompatActivity() {
             R.id.aboutNoodlesScreen -> {
                 onNavigatingBackFromAboutScreens()
             }
+            R.id.aboutManchurianScreen -> {
+                onNavigatingBackFromAboutScreens()
+            }
             R.id.cartScreen -> {
                 binding.btnCart.visibility = View.VISIBLE
                 binding.btnQuantity.visibility = View.GONE
