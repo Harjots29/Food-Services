@@ -2,16 +2,20 @@ package com.harjot.foodservicesuser
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
 import android.renderscript.Allocation
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.harjot.foodservicesuser.databinding.ActivityMainScreenBottomNavBinding
 import com.harjot.foodservicesuser.fragments.homesection.HomeScreen
 
@@ -154,25 +159,14 @@ class MainScreenBottomNav : AppCompatActivity() {
                 binding.fabEventAdd.visibility = View.VISIBLE
                 super.onBackPressed()
             }
-            R.id.aboutFoodItemScreen -> {
-                binding.btnHome.setCardBackgroundColor(getResources().getColor(R.color.red))
-                binding.ivHome.setColorFilter(ContextCompat.getColor(this, R.color.white))
-                binding.btnEvent.setCardBackgroundColor(getResources().getColor(R.color.white))
-                binding.ivEvent.setColorFilter(ContextCompat.getColor(this, R.color.red))
-                binding.btnInfo.setCardBackgroundColor(getResources().getColor(R.color.white))
-                binding.ivInfo.setColorFilter(ContextCompat.getColor(this, R.color.red))
-
-                binding.btnCart.visibility = View.VISIBLE
-                binding.btnHome.visibility = View.VISIBLE
-                binding.btnInfo.visibility = View.VISIBLE
-                binding.btnEvent.visibility = View.VISIBLE
-                binding.fabEventAdd.visibility = View.GONE
-                binding.btnQuantity.visibility = View.GONE
-                binding.btnAddToCart.visibility = View.GONE
-
-                binding.tvQuantity.text = "1"
-
-                navController.popBackStack(R.id.homeScreen,false)
+            R.id.aboutBurgerScreen -> {
+                onNavigatingBackFromAboutScreens()
+            }
+            R.id.aboutSandwichScreen -> {
+                onNavigatingBackFromAboutScreens()
+            }
+            R.id.aboutNoodlesScreen -> {
+                onNavigatingBackFromAboutScreens()
             }
             R.id.cartScreen -> {
                 binding.btnCart.visibility = View.VISIBLE
@@ -191,5 +185,61 @@ class MainScreenBottomNav : AppCompatActivity() {
             }
         }
     }
+    fun snackbar(view: View, message: String,){
+        val snackbar = Snackbar.make(view, "$message", Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction("Ok") { snackbar.dismiss() }
 
+        val snackbarView = snackbar.view
+        snackbarView.setBackgroundColor(Color.TRANSPARENT)
+
+        // Custom background of snackbar with rounded corners
+        val background = GradientDrawable()
+        background.cornerRadius = 50f
+
+        // Apply background
+        snackbarView.background = background
+        snackbarView.elevation = 20f
+
+        val params = snackbarView.layoutParams as ViewGroup.MarginLayoutParams
+        params.setMargins(20, 0, 20, 100) // Left, Top, Right, Bottom Margin
+        snackbarView.layoutParams = params
+
+        var textView = snackbarView
+            .findViewById<TextView>(
+                com.google.android.material.R.id.snackbar_text
+            )
+        var actionText = snackbarView
+            .findViewById<TextView>(
+                com.google.android.material.R.id.snackbar_action
+            )
+        textView.textSize = 18f
+
+        actionText.textSize = 18f
+
+        snackbar.setBackgroundTint(resources.getColor(R.color.red))
+        snackbar.setTextColor(Color.WHITE)
+        snackbar.setActionTextColor(Color.WHITE)
+            .show()
+    }
+    fun aboutItemScreenViewVisibilities(){
+        binding.btnQuantity.visibility = View.VISIBLE
+        binding.btnAddToCart.visibility = View.VISIBLE
+        binding.btnInfo.visibility = View.GONE
+        binding.btnEvent.visibility = View.GONE
+        binding.btnCart.visibility = View.GONE
+        binding.btnHome.visibility = View.GONE
+    }
+    fun onNavigatingBackFromAboutScreens(){
+        binding.btnCart.visibility = View.VISIBLE
+        binding.btnHome.visibility = View.VISIBLE
+        binding.btnInfo.visibility = View.VISIBLE
+        binding.btnEvent.visibility = View.VISIBLE
+        binding.fabEventAdd.visibility = View.GONE
+        binding.btnQuantity.visibility = View.GONE
+        binding.btnAddToCart.visibility = View.GONE
+
+        binding.tvQuantity.text = "1"
+
+        navController.popBackStack(R.id.homeScreen,false)
+    }
 }

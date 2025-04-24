@@ -27,10 +27,10 @@
         android:label="fragment_add_events"
         tools:layout="@layout/fragment_add_events" />
     <fragment
-        android:id="@+id/aboutFoodItemScreen"
-        android:name="com.harjot.foodservicesuser.fragments.homesection.AboutFoodItemScreen"
-        android:label="fragment_about_food_item_screen"
-        tools:layout="@layout/fragment_about_food_item_screen" />
+        android:id="@+id/aboutBurgerScreen"
+        android:name="com.harjot.foodservicesuser.fragments.homesection.AboutBurgerScreen"
+        android:label="fragment_about_burger_screen"
+        tools:layout="@layout/fragment_about_burger_screen" />
     <fragment
         android:id="@+id/cartScreen"
         android:name="com.harjot.foodservicesuser.fragments.homesection.CartScreen"
@@ -41,4 +41,14 @@
         android:name="com.harjot.foodservicesuser.fragments.providersection.RequestsScreen"
         android:label="fragment_requests_screen"
         tools:layout="@layout/fragment_requests_screen" />
+    <fragment
+        android:id="@+id/aboutNoodlesScreen"
+        android:name="com.harjot.foodservicesuser.fragments.homesection.AboutNoodlesScreen"
+        android:label="AboutNoodlesScreen"
+        tools:layout="@layout/fragment_about_noodles_screen"/>
+    <fragment
+        android:id="@+id/aboutSandwichScreen"
+        android:name="com.harjot.foodservicesuser.fragments.homesection.AboutSandwichScreen"
+        android:label="AboutSandwichScreen"
+        tools:layout="@layout/fragment_about_sandwich_screen"/>
 </navigation>

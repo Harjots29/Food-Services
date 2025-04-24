@@ -5,4 +5,6 @@ data class OrdersModel(
     var item: String?=null,
     var price: String?=null,
     var quantity: String?=null,
+    var itemType: String?=null,
+    var location: String?=null,
 )

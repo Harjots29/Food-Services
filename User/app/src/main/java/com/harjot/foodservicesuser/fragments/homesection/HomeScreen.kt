@@ -93,39 +93,36 @@ class HomeScreen : Fragment(),HomeTrendingInterface {
         trendingList.clear()
         trendingList.add(
             HomeTrendingModel(
-                name = "Pizza",
-                imageRes = R.drawable.img_1,
-                catersName = "Harjot Singh"
-            ))
-        trendingList.add(
-            HomeTrendingModel(
                 name = "Burger",
                 imageRes = R.drawable.add_1,
                 catersName = "Harjot Singh"
             ))
         trendingList.add(
             HomeTrendingModel(
+                name = "Pizza",
+                imageRes = R.drawable.img_1,
+                catersName = "Harjot Singh"
+            ))
+        trendingList.add(
+            HomeTrendingModel(
+                name = "Noodles",
+                imageRes = R.drawable.img_noodles,
+                catersName = "Harjot Singh"
+            ))
+        trendingList.add(
+            HomeTrendingModel(
                 name = "Sandwich",
-                imageRes = R.drawable.add_3,
+                imageRes = R.drawable.img_sandwich,
                 catersName = "Harjot Singh"
             ))
         trendingList.add(
             HomeTrendingModel(
-                name = "Fries",
-                imageRes = R.drawable.add_2,
-                catersName = "Harjot Singh"
-            ))
-        trendingList.add(
-            HomeTrendingModel(
-                name = "Mocktails",
-                imageRes = R.drawable.test,
+                name = "Manchurian",
+                imageRes = R.drawable.img_manchurian,
                 catersName = "Harjot Singh"
             ))
         homeTrendingAdapter.notifyDataSetChanged()
 
-//        mainScreenBottomNav.binding.btnCart.setOnClickListener {
-//            findNavController().navigate(R.id.cartScreen)
-//        }
 
         return binding.root
     }
@@ -295,6 +292,23 @@ class HomeScreen : Fragment(),HomeTrendingInterface {
     }
 
     override fun onItemClick(position: Int) {
-        findNavController().navigate(R.id.aboutFoodItemScreen)
+        when(position){
+            0->{
+                findNavController().navigate(R.id.aboutBurgerScreen)
+            }
+            1->{
+
+            }
+            2->{
+                findNavController().navigate(R.id.aboutNoodlesScreen)
+            }
+            3->{
+                findNavController().navigate(R.id.aboutSandwichScreen)
+            }
+            4->{
+
+            }
+        }
+
     }
 }

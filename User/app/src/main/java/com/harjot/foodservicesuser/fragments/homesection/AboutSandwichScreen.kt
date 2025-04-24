@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.harjot.foodservicesuser.MainScreenBottomNav
 import com.harjot.foodservicesuser.R
-import com.harjot.foodservicesuser.databinding.FragmentAboutFoodItemScreenBinding
+import com.harjot.foodservicesuser.databinding.FragmentAboutSandwichScreenBinding
 import com.harjot.foodservicesuser.models.OrdersModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -20,31 +19,26 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [AboutFoodItemScreen.newInstance] factory method to
+ * Use the [AboutSandwichScreen.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AboutFoodItemScreen : Fragment() {
+class AboutSandwichScreen : Fragment() {
     val binding by lazy {
-        FragmentAboutFoodItemScreenBinding.inflate(layoutInflater)
+        FragmentAboutSandwichScreenBinding.inflate(layoutInflater)
     }
-    lateinit var mainScreenBottomNav: MainScreenBottomNav
+    val mainScreenBottomNav by lazy {
+        activity as MainScreenBottomNav
+    }
     var database = Firebase.firestore
     val collectionName = "Orders"
-
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainScreenBottomNav = activity as MainScreenBottomNav
 
-        mainScreenBottomNav.binding.btnQuantity.visibility = View.VISIBLE
-        mainScreenBottomNav.binding.btnAddToCart.visibility = View.VISIBLE
-        mainScreenBottomNav.binding.btnHome.visibility = View.GONE
-        mainScreenBottomNav.binding.btnEvent.visibility = View.GONE
-        mainScreenBottomNav.binding.btnInfo.visibility = View.GONE
-        mainScreenBottomNav.binding.btnCart.visibility = View.GONE
+        mainScreenBottomNav.aboutItemScreenViewVisibilities()
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -57,7 +51,8 @@ class AboutFoodItemScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val price = binding.tvPrice.text.toString()
+        var itemType = "Simple Sandwich"
+        var price = binding.tvPrice.text.toString()
         var tvPrice = binding.tvPrice.text
         mainScreenBottomNav.binding.ivAdd.setOnClickListener {
             mainScreenBottomNav.binding.tvQuantity.text =
@@ -80,13 +75,62 @@ class AboutFoodItemScreen : Fragment() {
             mainScreenBottomNav.onBackPressed()
         }
 
-        mainScreenBottomNav.binding.btnAddToCart.setOnClickListener {
+        binding.cvSimple.setCardBackgroundColor(resources.getColor(R.color.red))
+        binding.tvSimple.setTextColor(resources.getColor(R.color.white))
+        binding.cvGrilled.setCardBackgroundColor(resources.getColor(R.color.light_grey))
+        binding.tvGrilled.setTextColor(resources.getColor(R.color.grey))
+        binding.cvFullLoaded.setCardBackgroundColor(resources.getColor(R.color.light_grey))
+        binding.tvFullLoaded.setTextColor(resources.getColor(R.color.grey))
+
+        binding.cvSimple.setOnClickListener {
+            binding.cvSimple.setCardBackgroundColor(resources.getColor(R.color.red))
+            binding.tvSimple.setTextColor(resources.getColor(R.color.white))
+            binding.cvGrilled.setCardBackgroundColor(resources.getColor(R.color.light_grey))
+            binding.tvGrilled.setTextColor(resources.getColor(R.color.grey))
+            binding.cvFullLoaded.setCardBackgroundColor(resources.getColor(R.color.light_grey))
+            binding.tvFullLoaded.setTextColor(resources.getColor(R.color.grey))
+
+            itemType = "Simple Sandwich"
+            binding.tvPrice.text = "20"
+            price = binding.tvPrice.text.toString()
+            tvPrice = binding.tvPrice.text
+        }
+        binding.cvGrilled.setOnClickListener {
+            binding.cvSimple.setCardBackgroundColor(resources.getColor(R.color.light_grey))
+            binding.tvSimple.setTextColor(resources.getColor(R.color.grey))
+            binding.cvGrilled.setCardBackgroundColor(resources.getColor(R.color.red))
+            binding.tvGrilled.setTextColor(resources.getColor(R.color.white))
+            binding.cvFullLoaded.setCardBackgroundColor(resources.getColor(R.color.light_grey))
+            binding.tvFullLoaded.setTextColor(resources.getColor(R.color.grey))
+
+            itemType = "Grilled Sandwich"
+            binding.tvPrice.text = "30"
+            price = binding.tvPrice.text.toString()
+            tvPrice = binding.tvPrice.text
+        }
+        binding.cvFullLoaded.setOnClickListener {
+            binding.cvSimple.setCardBackgroundColor(resources.getColor(R.color.light_grey))
+            binding.tvSimple.setTextColor(resources.getColor(R.color.grey))
+            binding.cvGrilled.setCardBackgroundColor(resources.getColor(R.color.light_grey))
+            binding.tvGrilled.setTextColor(resources.getColor(R.color.grey))
+            binding.cvFullLoaded.setCardBackgroundColor(resources.getColor(R.color.red))
+            binding.tvFullLoaded.setTextColor(resources.getColor(R.color.white))
+
+            itemType = "Full Loaded Sandwich"
+            binding.tvPrice.text = "40"
+            price = binding.tvPrice.text.toString()
+            tvPrice = binding.tvPrice.text
+        }
+
+        mainScreenBottomNav.binding.btnAddToCart.setOnClickListener { view->
             binding.tvPrice.text = price
             var model = OrdersModel(
                 id = "",
                 item = binding.tvItemName.text.toString(),
                 price = tvPrice.toString(),
-                quantity = mainScreenBottomNav.binding.tvQuantity.text.toString()
+                quantity = mainScreenBottomNav.binding.tvQuantity.text.toString(),
+//                location = mainScreenBottomNav.binding.tvLocation.text.toString(),
+                itemType = itemType
             )
             database.collection(collectionName).add(model)
                 .addOnSuccessListener {
@@ -94,13 +138,15 @@ class AboutFoodItemScreen : Fragment() {
                     mainScreenBottomNav.binding.btnQuantity.visibility = View.GONE
                     mainScreenBottomNav.binding.notificationDot.visibility = View.VISIBLE
                     mainScreenBottomNav.binding.btnCart.visibility = View.VISIBLE
-                    Toast.makeText(mainScreenBottomNav, "Success", Toast.LENGTH_SHORT).show()
+
+                    mainScreenBottomNav.snackbar(view,"Your item has been added to cart")
                 }.addOnFailureListener { exception->
                     mainScreenBottomNav.binding.btnAddToCart.visibility = View.VISIBLE
                     mainScreenBottomNav.binding.btnQuantity.visibility = View.VISIBLE
                     mainScreenBottomNav.binding.btnCart.visibility = View.GONE
                     mainScreenBottomNav.binding.notificationDot.visibility = View.GONE
-                    Toast.makeText(mainScreenBottomNav, "Failed ${exception.message}", Toast.LENGTH_SHORT).show()
+
+                    mainScreenBottomNav.snackbar(view,"Something went wrong : ${exception.message}")
                 }
         }
 
@@ -114,12 +160,12 @@ class AboutFoodItemScreen : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment AboutFoodItemScreen.
+         * @return A new instance of fragment AboutSandwichScreen.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            AboutFoodItemScreen().apply {
+            AboutSandwichScreen().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

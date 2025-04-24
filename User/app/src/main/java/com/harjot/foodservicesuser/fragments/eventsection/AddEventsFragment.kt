@@ -1,5 +1,6 @@
 package com.harjot.foodservicesuser.fragments.eventsection
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -102,6 +103,7 @@ class AddEventsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.ivSearchDate.setOnClickListener {
