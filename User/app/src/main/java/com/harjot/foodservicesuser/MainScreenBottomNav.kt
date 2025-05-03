@@ -27,6 +27,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.harjot.foodservicesuser.databinding.ActivityMainScreenBottomNavBinding
 import com.harjot.foodservicesuser.fragments.homesection.HomeScreen
 
@@ -34,6 +36,7 @@ class MainScreenBottomNav : AppCompatActivity() {
     val binding by lazy {
         ActivityMainScreenBottomNavBinding.inflate(layoutInflater)
     }
+    val auth = Firebase.auth
     lateinit var navController: NavController
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -81,7 +81,7 @@ class LoginScreen : Fragment() {
                 var email = binding.etUsername.text.toString().trim()
                 var password = binding.etPassword.text.toString().trim()
                 auth.signInWithEmailAndPassword(email,password)
-                    .addOnSuccessListener {
+                    .addOnSuccessListener {view->
                         binding.btnSubmit.isClickable = true
                         if(email == "admin@gmail.com" && password == "admin@123"){
                             var intent = Intent(authenticationActivity,AdminActivity::class.java)
@@ -95,10 +95,11 @@ class LoginScreen : Fragment() {
                     }
                     .addOnFailureListener {
                         binding.btnSubmit.isClickable = true
-                        Toast.makeText(authenticationActivity,
-                            "Sorry! Your Email or Password is incorrect",
-                            Toast.LENGTH_SHORT)
-                            .show()
+                        authenticationActivity.snackbar(view,"Sorry! Your Email or Password is incorrect")
+//                        Toast.makeText(authenticationActivity,
+//                            "Sorry! Your Email or Password is incorrect",
+//                            Toast.LENGTH_SHORT)
+//                            .show()
                     }
             }
         }

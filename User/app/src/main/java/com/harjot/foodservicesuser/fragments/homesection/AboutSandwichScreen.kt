@@ -126,6 +126,7 @@ class AboutSandwichScreen : Fragment() {
             binding.tvPrice.text = price
             var model = OrdersModel(
                 id = "",
+                uid = mainScreenBottomNav.auth.currentUser?.uid,
                 item = binding.tvItemName.text.toString(),
                 price = tvPrice.toString(),
                 quantity = mainScreenBottomNav.binding.tvQuantity.text.toString(),
